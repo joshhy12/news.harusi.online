@@ -10,24 +10,23 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'article_id' => 'required|exists:articles,id',
+            'article_id' => 'required|exists:articles,id', // Ensure article_id is provided and exists in the articles table
             'username' => 'required',
             'content' => 'required',
         ]);
 
-        $comment = Comment::create([
-            'article_id' => $request->input('article_id'),
-            'username' => $request->input('username'),
-            'content' => $request->input('content'),
-        ]);
+        // Create a new comment instance and set its attributes
+        $comment = new Comment();
+        $comment->username = $request->input('username');
+        $comment->content = $request->input('content');
+        $comment->article_id = $request->input('article_id'); // Set the article_id here
 
-
-        return redirect()->back()->with('success', 'Comment added successfully');
+        // Save the comment to the database
+        $comment->save();
 
         return response()->json([
             'message' => 'Comment added successfully',
             'comment' => $comment,
         ]);
-
     }
 }
