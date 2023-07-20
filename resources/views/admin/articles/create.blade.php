@@ -56,7 +56,7 @@
 
     // Set the local time in the published_at field
     document.getElementById('published_at').value = localTime.slice(0, 16);
-<<<<<<< HEAD
+
 
 
     // Get the input field
@@ -73,8 +73,7 @@
         // Set the uppercase text as the value of the input field
         titleInput.value = uppercaseText;
     });
-=======
->>>>>>> origin/main
+
 </script>
 
 @endsection

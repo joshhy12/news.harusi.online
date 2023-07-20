@@ -4,15 +4,11 @@
     <div class="container">
         <h1>Comments</h1>
 
-<<<<<<< HEAD
-        <a href="{{ route('admin.comments.create') }}" class="btn btn-primary mb-3">Add Comment</a>
-
-=======
->>>>>>> origin/main
         @if ($comments->count() > 0)
             <table class="table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Comment</th>
@@ -22,9 +18,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($comments as $comment)
+                    @foreach ($comments as $index => $comment)
                         <tr>
-                            <td>{{ $comment->name }}</td>
+                            <td>{{ $index + 1 }}</td> <!-- Adding the comment number -->
+                            <td>{{ $comment->username }}</td>
                             <td>{{ $comment->email }}</td>
                             <td>{{ $comment->content }}</td>
                             <td>{{ $comment->article->title }}</td>
@@ -39,10 +36,7 @@
                                 @if (!$comment->approved)
                                     <form action="{{ route('admin.comments.approve', $comment->id) }}" method="POST">
                                         @csrf
-<<<<<<< HEAD
                                         @method('PUT')
-=======
->>>>>>> origin/main
                                         <button type="submit" class="btn btn-primary">Approve</button>
                                     </form>
                                 @endif

@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.admin')
 
 @section('content')
 <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
@@ -46,23 +46,7 @@
 
                     <!-- ... -->
 
-                    <div>
-                        <h3>Add a Comment</h3>
-                        <form action="{{ route('comments.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="article_id" value="{{ $article->id }}">
-                            <div class="form-group">
-                                <label for="username">Name</label>
-                                <input type="text" name="username" id="username" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="content">Comment</label>
-                                <textarea name="content" id="content" rows="3" class="form-control" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Comment</button>
-                        </form>
 
-                    </div>
 
                     <!-- ... -->
 
@@ -75,7 +59,7 @@
             <div class="card mb-4">
                 <h5 class="card-header">Search</h5>
                 <div class="card-body">
-                    <form action="{{ route('articles.search') }}" method="GET">
+                    <form action="{{ route('admin.articles.search') }}" method="GET">
                         <div class="input-group">
                             <input type="text" name="searchtitle" class="form-control" placeholder="Search for..." required>
                             <span class="input-group-btn">
@@ -91,7 +75,7 @@
                     <ol type="I">
                         @if ($relatedArticles && $relatedArticles->count() > 0)
                         @foreach ($relatedArticles as $relatedArticle)
-                        <li><a href="{{ route('articles.show', $relatedArticle->id) }}">{{ $relatedArticle->title }}</a></li>
+                        <li><a href="{{ route('admin.articles.show', $relatedArticle->id) }}">{{ $relatedArticle->title }}</a></li>
                         @endforeach
                         @else
                         <p>No related articles available.</p>
@@ -106,7 +90,7 @@
                     <dl>
                         @foreach($categories as $category)
                         <dt>
-                            &nbsp; <a href="{{ route('categories.show', $category->id) }}" class="link-style" style="color: black; text-decoration: none;" onmouseover="this.style.color='blue'" onmouseout="this.style.color='black'">{{ $category->name }}</a>
+                            &nbsp; <a href="{{ route('admin.categories.show', $category->id) }}" class="link-style" style="color: black; text-decoration: none;" onmouseover="this.style.color='blue'" onmouseout="this.style.color='black'">{{ $category->name }}</a>
                         </dt>
                         @endforeach
                     </dl>
@@ -114,7 +98,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('javaScript/comments.js') }}"></script>
 
 </div>
 @endsection
