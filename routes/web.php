@@ -3,7 +3,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +14,7 @@ use App\Http\Controllers\Admin\AdminController as Admin;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
-
+use Illuminate\Support\Facades\Storage;
 
 // Public routes accessible to all users
 
@@ -65,7 +64,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/articles/{article}/edit', [AdminController::class, 'editArticle'])->name('admin.articles.edit');
     Route::put('/admin/articles/{article}', [AdminController::class, 'updateArticle'])->name('admin.articles.update');
     Route::get('/admin/articles/{article}', [AdminController::class, 'showArticle'])->name('admin.articles.show');
-
   //  Route::get('/admin/articles/{id}', [AdminController::class, 'showArticle'])->name('admin.articles.show');
     Route::delete('/admin/articles/{article}', [AdminController::class, 'destroyArticle'])->name('admin.articles.destroy');
 
@@ -74,11 +72,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/comments/create', [AdminController::class, 'commentcreate'])->name('admin.comments.create');
     Route::get('/admin/comments', [AdminController::class, 'showComments'])->name('admin.comments.index');
     Route::post('/admin/comments/{comment}/approve', [AdminController::class, 'approveComment'])->name('admin.comments.approve');
-
-
-
-    Route::get('/admin/articles/{id}', [AdminController::class, 'showArticle'])->name('admin.articles.show');
-    Route::delete('/admin/articles/{article}', [AdminController::class, 'destroyArticle'])->name('admin.articles.destroy');
 
 
     Route::get('/comments', [AdminController::class, 'showComments'])->name('admin.comments.index');
