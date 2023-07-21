@@ -57,8 +57,6 @@
     // Set the local time in the published_at field
     document.getElementById('published_at').value = localTime.slice(0, 16);
 
-
-
     // Get the input field
     var titleInput = document.getElementById('title');
 
