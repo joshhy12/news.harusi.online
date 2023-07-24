@@ -41,17 +41,7 @@
                         @else
                         <p>No comments available.</p>
                         @endif
-                        <br>
                     </div>
-
-
-                    <!-- ... -->
-
-
-
-                    <!-- ... -->
-
-
                 </div>
 
             </div>
