@@ -28,20 +28,26 @@
                 <td>{{ $comment->content }}</td>
                 <td>{{ $comment->article->title }}</td>
                 <td>
-                    @if ($comment->approved)
-                    <span class="badge badge-success">Approved</span>
+                    @if ($comment->status == 1)
+                    <button type="button" class="btn btn-success">Approved</button>
                     @else
-                    <span class="badge badge-warning">Pending</span>
+                    <button type="button" class="btn btn-warning">Pending</button>
                     @endif
                 </td>
                 <td>
-                    @if (!$comment->approved)
-                    <form action="{{ route('admin.comments.approve', $comment->id) }}" method="POST">
+                    @if (!$comment->status)
+                    <form action="{{ route('admin.comments.approve', $comment->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-primary">Approve</button>
                     </form>
                     @endif
+                    <!-- Add the delete form here as you requested -->
+                    <form action="{{ route('admin.comments.delete', $comment->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

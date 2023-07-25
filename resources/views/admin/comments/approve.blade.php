@@ -1,22 +1,42 @@
+<!-- resources/views/admin/comments/approved.blade.php -->
+
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        <h1>Approve Comment</h1>
-
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Comment Details</h5>
-                <p><strong>Name:</strong> {{ $comment->name }}</p>
-                <p><strong>Comment:</strong> {{ $comment->content }}</p>
-                <p><strong>Article:</strong> {{ $comment->article->title }}</p>
-                <p><strong>Status:</strong> {{ $comment->approved ? 'Approved' : 'Pending' }}</p>
-            </div>
-        </div>
-
-        <form action="{{ route('admin.comments.approve', $comment->id) }}" method="PUT">
-            @csrf
-            <button type="submit" class="btn btn-primary">Approve Comment</button>
-        </form>
+<div class="container">
+    <h1>Approved Comments</h1>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
+    @endif
+    @if ($approvedComments->count() > 0)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>Article</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($approvedComments as $index => $comment)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $comment->username }}</td>
+                <td>{{ $comment->content }}</td>
+                <td>{{ $comment->article->title }}</td>
+                <td>
+                    <span class="badge badge-success">Approved</span>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @else
+    <p>No approved comments found.</p>
+    @endif
+</div>
 @endsection

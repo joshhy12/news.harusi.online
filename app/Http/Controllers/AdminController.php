@@ -375,6 +375,7 @@ class AdminController extends Controller
     }
 
 
+
     public function denyComment($id)
     {
         $comment = Comment::findOrFail($id);

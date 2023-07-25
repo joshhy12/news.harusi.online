@@ -28,8 +28,5 @@ class Comment extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+
 }

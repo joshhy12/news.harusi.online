@@ -24,6 +24,8 @@
     <script src="{{ asset('JavaScript/myScript.js') }}"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <!-- Replace the URLs with the correct paths to your DevExpress files -->
     <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.6/css/dx.common.css">
     <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.6/css/dx.light.css">
@@ -90,6 +92,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('admin.comments.index') }}">Manage Comment</a>
+                                <a class="dropdown-item" href="{{ route('admin.comments.approved') }}">Approved Comment</a>
                             </div>
                         </li>
                         <!-- Add other menu items with dropdowns and "Add" options -->

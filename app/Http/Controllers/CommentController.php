@@ -26,4 +26,14 @@ class CommentController extends Controller
         return redirect()->back()->with('success', 'Comment added successfully. It will be visible after admin approval.');
     }
 
+    public function approve($id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->status = 1; // Set the status to 1 (approved)
+        $comment->save();
+
+        return redirect()->back()->with('success', 'Comment approved successfully.');
+    }
+
+
 }
