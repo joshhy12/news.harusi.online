@@ -21,13 +21,18 @@
                     <p>{!! $article->content !!}</p>
                     <p>Published on: {{ $article->published_at }}</p>
                     <p>Category: {{ $article->category->name }}</p>
+
                     <div class="mt-4">
                         <h3>Comments</h3>
-                        @if ($article->comments && $article->comments->count() > 0)
-                        @foreach ($article->comments as $comment)
+                        @php
+                        $approvedComments = $article->comments->where('status', 'approved');
+                        @endphp
+
+                        @if ($approvedComments->count() > 0)
+                        @foreach ($approvedComments as $comment)
                         <div class="card mt-2">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $comment->username }}</h5> <!-- Use comment's username instead of user's name -->
+                                <h5 class="card-title">{{ $comment->username }}</h5>
                                 <p class="card-text">{{ $comment->content }}</p>
                                 <p class="card-text"><small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small></p>
                             </div>
@@ -37,6 +42,8 @@
                         <p>No comments available.</p>
                         @endif
                     </div>
+
+
                     <div>
                         <h3>Add a Comment</h3>
                         <form action="{{ route('comments.store') }}" method="POST">

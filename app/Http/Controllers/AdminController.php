@@ -342,34 +342,21 @@ class AdminController extends Controller
     ///////////////////////////////////////////////////////////////
     //Comment
 
-
-    public function commentcreate()
+    public function index()
     {
-        $articles = Article::all();
-
-        return view('comments.create', compact('articles'));
+        $comments = Comment::all(); // Fetch all comments from the database
+        return view('admin.comments.index', compact('comments'));
     }
+
 
     public function comment(Article $article, Request $request)
     {
         // Validate the comment data
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'comment' => 'required',
-        ]);
+        $pendingComments = Comment::where('status', 'pending')->get();
+        $approvedComments = Comment::where('status', 'approved')->get();
+        $deniedComments = Comment::where('status', 'denied')->get();
 
-        // Create a new comment
-        $comment = new Comment();
-        $comment->name = $request->input('name');
-        $comment->email = $request->input('email');
-        $comment->content = $request->input('comment');
-        $comment->approved = false; // Set the initial approval status to false
-
-        // Associate the comment with the article
-        $article->comments()->save($comment);
-
-        return redirect()->back()->with('success', 'Comment added successfully! It is pending approval.');
+        return view('admin.comments.index', compact('pendingComments', 'approvedComments', 'deniedComments'));
     }
 
     public function showComments()
@@ -378,11 +365,31 @@ class AdminController extends Controller
         return view('admin.comments.index', compact('comments'));
     }
 
-    public function approveComment(Comment $comment)
+    public function approveComment($id)
     {
-        $comment->approved = true;
+        $comment = Comment::findOrFail($id);
+        $comment->status = 1; // 1 represents 'approved'
         $comment->save();
 
         return redirect()->route('admin.comments.index')->with('success', 'Comment approved successfully.');
+    }
+
+
+    public function denyComment($id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->status = 0; // 0 represents 'pending' (you can also use 2 for 'denied' if you prefer)
+        $comment->save();
+
+        return redirect()->route('admin.comments.index')->with('success', 'Comment denied successfully.');
+    }
+
+
+    public function deleteComment($id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+
+        return redirect()->route('admin.comments.index')->with('success', 'Comment deleted successfully.');
     }
 }

@@ -17,7 +17,11 @@ class ArticleController extends Controller
     {
         $articles = Article::orderBy('created_at', 'desc')->get();
         $categories = Category::all();
-        return view('articles.index', compact('articles', 'categories'));
+
+        // Fetch the approved comments for the specific article
+        $approvedComments = $articles->comments()->where('status', 'approved')->get();
+
+        return view('articles.index', compact('articles', 'categories' , 'approvedComments'));
     }
 
     public function show(Article $article)
@@ -59,40 +63,5 @@ class ArticleController extends Controller
         }
 
         return view('articles.search', compact('articles', 'searchTitle', 'relatedArticles', 'categories'));
-    }
-
-
-
-    public function addComment(Request $request, Article $article)
-    {
-        $request->validate([
-            'username' => 'required',
-            'content' => 'required',
-        ]);
-
-        $comment = new Comment();
-        $comment->username = $request->input('username');
-        $comment->content = $request->input('content');
-        $comment->article_id = $article->id;
-        $comment->save();
-
-        return redirect()->back()->with('success', 'Comment added successfully.');
-    }
-
-
-    public function storeComment(Request $request, Article $article)
-    {
-        $request->validate([
-            'username' => 'required',
-            'content' => 'required',
-        ]);
-
-        $comment = new Comment();
-        $comment->username = $request->input('username');
-        $comment->content = $request->input('content');
-        $comment->article_id = $article->id;
-        $comment->save();
-
-        return redirect()->back()->with('success', 'Comment added successfully.');
     }
 }

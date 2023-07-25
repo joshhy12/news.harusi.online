@@ -3,14 +3,17 @@
 @section('content')
 <div class="container">
     <h1>Comments</h1>
-
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
     @if ($comments->count() > 0)
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Email</th>
                 <th>Comment</th>
                 <th>Article</th>
                 <th>Status</th>
@@ -22,9 +25,8 @@
             <tr>
                 <td>{{ $index + 1 }}</td> <!-- Adding the comment number -->
                 <td>{{ $comment->username }}</td>
-                <td>{{ $comment->email }}</td>
                 <td>{{ $comment->content }}</td>
-                <td>{{ $comment->article->title ?? 'N/A' }}</td> <!-- Use null coalescing operator to handle null article -->
+                <td>{{ $comment->article->title }}</td>
                 <td>
                     @if ($comment->approved)
                     <span class="badge badge-success">Approved</span>
@@ -40,14 +42,6 @@
                         <button type="submit" class="btn btn-primary">Approve</button>
                     </form>
                     @endif
-                </td>
-
-                <td>
-                    <form action= method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
                 </td>
             </tr>
             @endforeach

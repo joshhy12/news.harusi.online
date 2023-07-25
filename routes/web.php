@@ -74,9 +74,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/comments/{comment}/approve', [AdminController::class, 'approveComment'])->name('admin.comments.approve');
 
 
-    Route::get('/comments', [AdminController::class, 'showComments'])->name('admin.comments.index');
-    Route::put('/comments/{comment}/approve', [AdminController::class, 'approveComment'])->name('admin.comments.approve');
     Route::get('/admin/comments', [AdminController::class, 'showComments'])->name('admin.comments.index');
+    Route::get('comments', [AdminController::class, 'index'])->name('admin.comments.index');
+    Route::put('comments/{id}/approve', [AdminController::class, 'approveComment'])->name('admin.comments.approve');
+    Route::put('comments/{id}/deny', [AdminController::class, 'denyComment'])->name('admin.comments.deny');
+    Route::delete('comments/{id}', [AdminController::class, 'deleteComment'])->name('admin.comments.delete');
 
 });
 
@@ -107,7 +109,7 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //comment
-//Route::post('/comments/add', [CommentController::class, 'addComment'])->name('comments.add');
+Route::post('/comments/add', [CommentController::class, 'addComment'])->name('comments.add');
 
 // Comment Routes
 //Route::post('/articles/{article}/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -116,7 +118,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
-Route::post('/comments', [ArticleController::class, 'storeComment'])->name('comments.store');
+Route::post('/comments', [CommentController::class, 'storeComment'])->name('comments.store');
 
 
 

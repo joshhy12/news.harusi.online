@@ -7,26 +7,23 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    public function storeComment(Request $request)
     {
         $request->validate([
-            'article_id' => 'required|exists:articles,id', // Ensure article_id is provided and exists in the articles table
+            'article_id' => 'required|exists:articles,id',
             'username' => 'required',
             'content' => 'required',
         ]);
 
-        // Create a new comment instance and set its attributes
         $comment = new Comment();
         $comment->username = $request->input('username');
         $comment->content = $request->input('content');
-        $comment->article_id = $request->input('article_id'); // Set the article_id here
+        $comment->article_id = $request->input('article_id');
+        $comment->status = 0; // Set the status to 0 (pending) by default
 
-        // Save the comment to the database
         $comment->save();
 
-        return response()->json([
-            'message' => 'Comment added successfully',
-            'comment' => $comment,
-        ]);
+        return redirect()->back()->with('success', 'Comment added successfully. It will be visible after admin approval.');
     }
+
 }
