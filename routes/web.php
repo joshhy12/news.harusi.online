@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ContactController;
 
 
 // Public routes accessible to all users
@@ -74,8 +75,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // comment
 
     Route::post('/admin/comments/{comment}/approve', [CommentController::class, 'approveComment'])->name('admin.comments.approve');
-    Route::get('/admin/comments/approved', [CommentController::class, 'approved'])->name('admin.comments.approved');
+   // Route::get('/admin/comments/approved', [CommentController::class, 'approved'])->name('admin.comments.approved');
 
+    Route::get('/admin/comments/approved', [AdminController::class, 'approved'])->name('admin.comments.approved');
 
 
     Route::post('/admin/comments', [AdminController::class, 'store'])->name('admin.comments.store');
@@ -101,7 +103,6 @@ Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles
 
 
 // Categories
-//look for the index of category is different from idex of articles
 Route::get('/', [CategoryController::class, 'index'])->name('home');
 Route::resource('categories', CategoryController::class)->except(['show']);
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
@@ -115,6 +116,19 @@ Route::post('/comments/add', [CommentController::class, 'addComment'])->name('co
 //About
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::post('/submit-form', 'ContactController@submit')->name('contact.submit');
+
+
+//contact
+Route::post('/contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit');
+
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
+
+// Route for displaying the contact form
+Route::get('/contact', function () {
+    return view('contact');
+});
+// Route for handling the form submission
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 
 //User
 Auth::routes();

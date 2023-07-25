@@ -374,6 +374,14 @@ class AdminController extends Controller
         return redirect()->route('admin.comments.index')->with('success', 'Comment approved successfully.');
     }
 
+    public function approved()
+    {
+        // Fetch only the approved comments from the database
+        $approvedComments = Comment::where('status', 1)->get();
+
+        return view('admin.comments.approved', compact('approvedComments'));
+    }
+
 
 
     public function denyComment($id)

@@ -55,7 +55,6 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Add Comment</button>
                         </form>
-
                     </div>
                 </div>
 
@@ -104,7 +103,6 @@
             </div>
         </div>
     </div>
-    <!-- <script src="{{ asset('javaScript/comments.js') }}"></script>
- -->
+    <!-- <script src="{{ asset('javaScript/comments.js') }}"></script> -->
 </div>
 @endsection
