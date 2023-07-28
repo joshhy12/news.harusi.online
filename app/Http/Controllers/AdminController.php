@@ -14,11 +14,18 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $articles = Article::all(); // Retrieve all articles from the database
-        $categories = Category::all(); // Retrieve all categories from the database
+        if (!auth()->user()->isAdmin) {
+            abort(403, 'Unauthorized.');
+        }
+
+        // Your admin dashboard logic here...
+        // For example, retrieve all articles and categories from the database
+        $articles = Article::all();
+        $categories = Category::all();
+
+        // Return the admin dashboard view with the data
         return view('admin.dashboard', compact('articles', 'categories'));
     }
-
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -43,8 +50,17 @@ class AdminController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function updateUser(Request $request, User $user)
+
+    public function updateUser(Request $request, $id)
     {
+        // Find the user from the database based on the provided $id
+        $user = User::find($id);
+
+        // Check if the user exists before proceeding with the update
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
         // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required',
@@ -65,6 +81,11 @@ class AdminController extends Controller
         // Save the updated user
         $user->save();
 
+        // Update the user's role in the session if the isAdmin field has changed
+        if (auth()->check() && auth()->user()->id === $user->id) {
+            auth()->user()->isAdmin = $user->isAdmin;
+        }
+
         // Redirect to the appropriate page or show a success message
         if ($user) {
             return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
@@ -72,6 +93,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to update user.');
         }
     }
+
 
 
 

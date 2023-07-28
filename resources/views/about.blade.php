@@ -140,7 +140,7 @@
                                         <span class="fa fa-globe"></span>
                                     </div>
                                     <div class="text">
-                                        <p><span>Website</span> <a href="http://127.0.0.1:8000/">yoursite.com</a></p>
+                                        <p><span>Website</span> <a href="http://127.0.0.1:8000/">Harusi.Online.com</a></p>
                                     </div>
                                 </div>
                             </div>

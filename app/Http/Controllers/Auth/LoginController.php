@@ -42,7 +42,8 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         // Check if the authenticated user's email matches the admin email
-        $adminEmail = 'admin@gmail.com'; // Replace with your admin email
+        $adminEmail = 'admin@gmail.com';
+      //  $adminEmail = 'binah@gmail.com';  // Replace with your admin email
         if ($user->email === $adminEmail) {
             // Redirect to the admin page
             return redirect()->route('admin.dashboard'); // Replace with your admin route or URL

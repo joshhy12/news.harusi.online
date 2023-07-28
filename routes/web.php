@@ -34,12 +34,12 @@ Route::middleware(['auth'])->group(function () {
 ///////////////////////////////Admin Penel//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Admin Penel
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'isAdmin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'authorize'])->name('admin.dashboard');
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    // User routes
+   // User routes
     Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.users.index');
     Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
     Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');

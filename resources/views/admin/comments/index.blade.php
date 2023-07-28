@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+<link href="{{ asset('css/comments.css') }}" rel="stylesheet">
+
 <div class="container">
     <h1>Comments</h1>
     @if (session('success'))
@@ -9,7 +11,7 @@
     </div>
     @endif
     @if ($comments->count() > 0)
-    <table class="table">
+    <table class="table" id="categories-table">
         <thead>
             <tr>
                 <th>#</th>

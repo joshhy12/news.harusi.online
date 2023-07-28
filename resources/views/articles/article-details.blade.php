@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ asset('css/comments.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<link rel="stylesheet" href="{{ asset('css/Accordion.css') }}">
+<script src="{{ asset('javaScript/Accordion.js') }}"></script>
+
 <div class="container">
     @if (session('success'))
     <div class="alert alert-success">
@@ -100,6 +104,29 @@
                         @endforeach
                     </dl>
                 </div>
+            </div>
+            <br>
+
+            <div class="card">
+                <div class="card-header">{{ __('More Details About') }}</div>
+
+
+                    <button class="accordion">Section 1</button>
+                    <div class="panel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <button class="accordion">Section 2</button>
+                    <div class="panel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <button class="accordion">Section 3</button>
+                    <div class="panel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+
             </div>
         </div>
     </div>

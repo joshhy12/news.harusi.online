@@ -10,7 +10,9 @@ class AdminMiddleware
 {
     public function handle($request, Closure $next)
 {
-    $allowedEmail = 'admin@gmail.com'; // Replace with your Gmail address
+    $allowedEmail = 'admin@gmail.com';
+  //  $allowedEmail = 'binah@gmail.com';
+     // Replace with your Gmail address
 
     if (auth()->check() && auth()->user()->email === $allowedEmail) {
         return $next($request);
