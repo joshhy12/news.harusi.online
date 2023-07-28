@@ -79,7 +79,6 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
     Route::get('/admin/comments/approved', [AdminController::class, 'approved'])->name('admin.comments.approved');
 
-
     Route::post('/admin/comments', [AdminController::class, 'store'])->name('admin.comments.store');
     Route::get('/admin/comments', [AdminController::class, 'showComments'])->name('admin.comments.index');
     Route::post('/admin/comments/{comment}/approve', [AdminController::class, 'approveComment'])->name('admin.comments.approve');
@@ -132,8 +131,13 @@ Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact
 
 //User
 Auth::routes();
-Route::get('/users/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
+Route::get('/users/index', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/users/edit', [UserController::class, 'edit'])->name('user.edit');
+//Route::put('/users/update', [UserController::class, 'updateUser'])->name('users.update');
+//Route::put('/users/update', [UserController::class, 'updateUser'])->name('users.update');
+Route::put('/users/update/{id}', [UserController::class, 'updateUser'])->name('users.update');
+
 
 // Authentication Routes
 Route::get('login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');

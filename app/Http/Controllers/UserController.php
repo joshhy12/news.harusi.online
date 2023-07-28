@@ -1,27 +1,45 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Models\User;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        $users = User::all();
+
+        return view('users.index', compact('users'));
+    }
+
+
+
     public function edit()
     {
         $user = Auth::user();
-        return view('users.edit', compact('user'))->with('success', 'Account updated successfully.');
-        //return redirect()->route('users.edit')->with('success', 'Account updated successfully.');
-
+        return view('users.edit', compact('user'));
     }
 
-    public function updateUser(Request $request, User $user)
+
+    public function updateUser(Request $request)
     {
+        $user = Auth::user();
+
+        // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:8',
         ]);
 
+        // Update the user data
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
 
@@ -30,9 +48,10 @@ class UserController extends Controller
             $user->password = bcrypt($validatedData['password']);
         }
 
+
+        // Save the updated user data
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('success', 'Account updated successfully.');
     }
-
 }
