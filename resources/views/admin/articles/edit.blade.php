@@ -58,8 +58,7 @@
     document.getElementById('published_at').value = localTime.slice(0, 16);
 
 
-
-
+// i make som of changes but dont apear 
     // Initialize the editor after the document is loaded
     document.addEventListener("DOMContentLoaded", function() {
         const editorInstance = $('#contentEditor').dxHtmlEditor({
