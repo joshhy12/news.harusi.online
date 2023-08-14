@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Articles Search') }}</div>
-                <div class="container">
+                <div CLASS="container">
 
     <div class="container">
     <h1>Search Results for  <span style="text-decoration: underline; color: #7FFFD4;">{{ $searchTitle }}</span></h1>

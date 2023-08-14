@@ -44,7 +44,6 @@
         <button type="submit" class="btn btn-primary">Create Article</button>
     </form>
 </div>
-
 <script>
 // i try to remove the input button of time but give error
     // Get the server's current time in UTC
